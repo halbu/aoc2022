@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	var output = utils.GetData("./day1/day1-input")
+	var data = utils.GetData("./day1/day1-input")
 	var values []int
 	var elfIndex int = 0
 
-	for _, s := range output {
+	for _, s := range data {
 		if s == "" {
 			elfIndex++
 		} else {
