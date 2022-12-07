@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func GetData(s string) []string {
@@ -53,4 +54,31 @@ func Sum(arr []int) int {
 		sum += e
 	}
 	return sum
+}
+
+func Count(arr []int, v int) int {
+	var count int = 0
+	for _, e := range arr {
+		if e == v {
+			count++
+		}
+	}
+	return count
+}
+
+// Return all common characters shared between two strings
+func Commonalities(arr1 string, arr2 string) string {
+	output := ""
+	for _, e1 := range arr1 {
+		for _, e2 := range arr2 {
+			if e1 == e2 {
+				if strings.ContainsRune(output, e1) {
+					// Do nothing
+				} else {
+					output = output + string(e1)
+				}
+			}
+		}
+	}
+	return output
 }
