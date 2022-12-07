@@ -24,12 +24,11 @@ func main() {
 
 	var points int = 0
 	for _, e := range data {
-		fmt.Println(e)
 		var result int = outcomes[e]
 		points += result
 	}
 
-	fmt.Print("Day 2 Part 1 solution: " + strconv.Itoa(points))
+	fmt.Println("Day 2 Part 1 solution: " + strconv.Itoa(points))
 
 	// And let's hardcode the outcomes again
 	newStrategyOutcomes := map[string]int{
@@ -46,10 +45,9 @@ func main() {
 
 	var newStrategyPoints int = 0
 	for _, e := range data {
-		fmt.Println(e)
 		var result int = newStrategyOutcomes[e]
 		newStrategyPoints += result
 	}
 
-	fmt.Print("Day 2 Part 2 solution: " + strconv.Itoa(newStrategyPoints))
+	fmt.Println("Day 2 Part 2 solution: " + strconv.Itoa(newStrategyPoints))
 }
