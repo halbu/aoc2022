@@ -19,9 +19,12 @@ func GetData(s string) []string {
 	return output
 }
 
-func StringToInt(s string) int {
-	integer, _ := strconv.Atoi(s)
-	return integer
+func IAbs(i int) int {
+	if i < 0 {
+		return -i
+	} else {
+		return i
+	}
 }
 
 // Convenience functions for num array manipulation that I suspect I will be
@@ -53,6 +56,18 @@ func Sum(arr []int) int {
 		sum += e
 	}
 	return sum
+}
+
+func Product(arr []int) int {
+	var prod int = 0
+	for i, e := range arr {
+		if i == 0 {
+			prod = e
+		} else {
+			prod *= e
+		}
+	}
+	return prod
 }
 
 func Count(arr []int, v int) int {
@@ -110,4 +125,9 @@ func Remainder(str string, substr string) string {
 	} else {
 		return str
 	}
+}
+
+func StringToInt(s string) int {
+	integer, _ := strconv.Atoi(s)
+	return integer
 }
