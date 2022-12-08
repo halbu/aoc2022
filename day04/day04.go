@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	var data = utils.GetData("./day4/day4-input")
+	var data = utils.GetData("./day04/day04-input")
 
 	var containmentCount = 0
 	for _, e := range data {

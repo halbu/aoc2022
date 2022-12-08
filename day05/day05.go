@@ -22,7 +22,7 @@ func getStacks() [][]rune {
 }
 
 func main() {
-	var data = utils.GetData("./day5/day5-input")
+	var data = utils.GetData("./day05/day05-input")
 
 	var stacks = getStacks()
 

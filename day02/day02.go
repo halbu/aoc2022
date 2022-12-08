@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	var data = utils.GetData("./day2/day2-input")
+	var data = utils.GetData("./day02/day02-input")
 
 	// Let's hardcode the outcomes. Seems simplest
 	outcomes := map[string]int{

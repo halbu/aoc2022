@@ -43,7 +43,7 @@ func calculateViewDistance(x int, y int, dx int, dy int) int {
 }
 
 func main() {
-	var data = utils.GetData("./day8/day8-input")
+	var data = utils.GetData("./day08/day08-input")
 
 	// Dump our tree height values into a 2d array
 	for i := range data {

@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	var data = utils.GetData("./day1/day1-input")
+	var data = utils.GetData("./day01/day01-input")
 	var values []int
 	var elfIndex int = 0
 

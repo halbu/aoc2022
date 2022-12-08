@@ -33,7 +33,7 @@ func findAllDirsWithCondition(n *Node, val int, cond string) int {
 }
 
 func main() {
-	var data = utils.GetData("./day7/day7-input")
+	var data = utils.GetData("./day07/day07-input")
 
 	var currentDir *Node
 	var root = Node{parent: nil, files: []int{}, dirs: []*Node{}}

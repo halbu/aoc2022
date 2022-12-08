@@ -15,7 +15,7 @@ func intToPriority(i int) int {
 }
 
 func main() {
-	var data = utils.GetData("./day3/day3-input")
+	var data = utils.GetData("./day03/day03-input")
 
 	var priorities = []int{}
 

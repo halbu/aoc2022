@@ -19,7 +19,7 @@ func indexOfFirstDistinctNChars(n int, data string) int {
 }
 
 func main() {
-	var data = utils.GetData("./day6/day6-input")[0]
+	var data = utils.GetData("./day06/day06-input")[0]
 	fmt.Println("Day 6 Part 1 solution: " + strconv.Itoa(indexOfFirstDistinctNChars(4, data)))
 	fmt.Println("Day 6 Part 2 solution: " + strconv.Itoa(indexOfFirstDistinctNChars(14, data)))
 }
