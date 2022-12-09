@@ -40,7 +40,6 @@ func main() {
 		var dir = strings.Split(e, " ")[0]
 		var dist = utils.StringToInt(strings.Split(e, " ")[1])
 		var totalHeadMovement = []int{dirs[dir][0], dirs[dir][1]}
-
 		head[0] += (totalHeadMovement[0] * dist)
 		head[1] += (totalHeadMovement[1] * dist)
 
@@ -53,4 +52,29 @@ func main() {
 	}
 
 	fmt.Println("Day 9 Part 1 solution: " + strconv.Itoa(len(utils.RemoveDuplicates(locs))))
+
+	var rope = [][]int{{0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}}
+	locs = []string{"0, 0"}
+
+	for _, e := range data {
+		var dir = strings.Split(e, " ")[0]
+		var dist = utils.StringToInt(strings.Split(e, " ")[1])
+
+		// Need to move one step at a time now rather than jumping `head` directly
+		// to its destination as this will influence how the subsequent knots move
+		for m := 0; m != dist; m++ {
+			rope[0][0] += dirs[dir][0]
+			rope[0][1] += dirs[dir][1]
+			for i := 0; i < len(rope)-1; i++ {
+				for isMoveRequired(rope[i], rope[i+1]) {
+					var tailMovDir = getMoveDir(rope[i], rope[i+1])
+					rope[i+1][0] += tailMovDir[0]
+					rope[i+1][1] += tailMovDir[1]
+				}
+			}
+			locs = append(locs, strconv.Itoa(rope[9][0])+", "+strconv.Itoa(rope[9][1]))
+		}
+	}
+
+	fmt.Println("Day 9 Part 2 solution: " + strconv.Itoa(len(utils.RemoveDuplicates(locs))))
 }

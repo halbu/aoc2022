@@ -133,13 +133,13 @@ func StringToInt(s string) int {
 }
 
 func RemoveDuplicates(arr []string) []string {
-	allKeys := make(map[string]bool)
-	list := []string{}
-	for _, item := range arr {
-		if _, value := allKeys[item]; !value {
-			allKeys[item] = true
-			list = append(list, item)
+	var keys = make(map[string]bool)
+	var out = []string{}
+	for _, e := range arr {
+		if _, v := keys[e]; !v {
+			keys[e] = true
+			out = append(out, e)
 		}
 	}
-	return list
+	return out
 }
