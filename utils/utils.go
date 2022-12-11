@@ -71,12 +71,13 @@ func Product(arr []int) int {
 	return prod
 }
 
-func IntSort(arr []int, desc bool) {
+func IntSort(arr []int, desc bool) []int {
 	if desc {
 		sort.Sort(sort.Reverse(sort.IntSlice(arr)))
 	} else {
 		sort.Ints(arr)
 	}
+	return arr
 }
 
 func Count[T int | string](arr []T, v T) int {

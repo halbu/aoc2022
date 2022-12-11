@@ -3,6 +3,7 @@ package main
 import (
 	"aoc2022/utils"
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -15,6 +16,11 @@ type Monkey struct {
 }
 
 func main() {
+	fmt.Println("Day 11 part 1 solution: " + strconv.Itoa(processMonkeyBusiness(false, 20)))
+	fmt.Println("Day 11 part 2 solution: " + strconv.Itoa(processMonkeyBusiness(true, 10000)))
+}
+
+func processMonkeyBusiness(pt2 bool, rounds int) int {
 	var data = utils.GetData("./day11/day11-input")
 
 	monkeys, inspections := []Monkey{}, []int{}
@@ -34,7 +40,7 @@ func main() {
 		})
 	}
 
-	for round := 1; round < 21; round++ {
+	for round := 0; round < rounds; round++ {
 		for i := 0; i < len(monkeys); i++ {
 			for len(monkeys[i].items) > 0 {
 				inspections[i]++
@@ -53,7 +59,11 @@ func main() {
 					monkeys[i].items[0] = monkeys[i].items[0] * iOperand
 				}
 
-				monkeys[i].items[0] = (monkeys[i].items[0] / 3)
+				if pt2 {
+					monkeys[i].items[0] = monkeys[i].items[0] % 9699690
+				} else {
+					monkeys[i].items[0] = (monkeys[i].items[0] / 3)
+				}
 
 				if monkeys[i].items[0]%monkeys[i].test == 0 {
 					monkeys[monkeys[i].trueMonkeyIx].items = append(monkeys[monkeys[i].trueMonkeyIx].items, monkeys[i].items[0])
@@ -65,6 +75,5 @@ func main() {
 		}
 	}
 
-	utils.IntSort(inspections, true)
-	fmt.Println(inspections[0] * inspections[1])
+	return (utils.Product(utils.IntSort(inspections, true)[0:2]))
 }
