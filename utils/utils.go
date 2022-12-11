@@ -3,6 +3,7 @@ package utils
 import (
 	"bufio"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -68,6 +69,14 @@ func Product(arr []int) int {
 		}
 	}
 	return prod
+}
+
+func IntSort(arr []int, desc bool) {
+	if desc {
+		sort.Sort(sort.Reverse(sort.IntSlice(arr)))
+	} else {
+		sort.Ints(arr)
+	}
 }
 
 func Count[T int | string](arr []T, v T) int {
