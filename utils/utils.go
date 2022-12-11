@@ -10,7 +10,7 @@ import (
 func GetData(s string) []string {
 	file, _ := os.Open(s)
 	scanner := bufio.NewScanner(file)
-	var output []string
+	output := []string{}
 
 	for scanner.Scan() {
 		output = append(output, scanner.Text())
@@ -31,7 +31,7 @@ func IAbs(i int) int {
 // needing a lot
 
 func Max(arr []int) int {
-	var max = 0
+	max := 0
 	for _, e := range arr {
 		if e > max {
 			max = e
@@ -41,7 +41,7 @@ func Max(arr []int) int {
 }
 
 func Min(arr []int) int {
-	var min = int(^uint(0) >> 1)
+	min := int(^uint(0) >> 1)
 	for _, e := range arr {
 		if e < min {
 			min = e
@@ -51,7 +51,7 @@ func Min(arr []int) int {
 }
 
 func Sum(arr []int) int {
-	var sum int = 0
+	sum := 0
 	for _, e := range arr {
 		sum += e
 	}
@@ -59,7 +59,7 @@ func Sum(arr []int) int {
 }
 
 func Product(arr []int) int {
-	var prod int = 0
+	prod := 0
 	for i, e := range arr {
 		if i == 0 {
 			prod = e
@@ -70,8 +70,8 @@ func Product(arr []int) int {
 	return prod
 }
 
-func Count(arr []int, v int) int {
-	var count int = 0
+func Count[T int | string](arr []T, v T) int {
+	count := 0
 	for _, e := range arr {
 		if e == v {
 			count++
@@ -107,9 +107,9 @@ func StartsWith(str string, substr string) bool {
 }
 
 func Remainder(str string, substr string) string {
-	var ix = 0
-	var l = len(substr)
-	var found bool = false
+	ix := 0
+	l := len(substr)
+	found := false
 
 	for !found && ix < len(str) {
 		if str[ix:ix+l] == substr {
@@ -120,11 +120,9 @@ func Remainder(str string, substr string) string {
 	}
 
 	if found {
-		var newStr string = str[:ix] + str[ix+l:]
-		return newStr
-	} else {
-		return str
+		return str[:ix] + str[ix+l:]
 	}
+	return str
 }
 
 func StringToInt(s string) int {
@@ -132,9 +130,9 @@ func StringToInt(s string) int {
 	return integer
 }
 
-func RemoveDuplicates(arr []string) []string {
-	var keys = make(map[string]bool)
-	var out = []string{}
+func RemoveDuplicates[T int | string](arr []T) []T {
+	keys := make(map[T]bool)
+	out := []T{}
 	for _, e := range arr {
 		if _, v := keys[e]; !v {
 			keys[e] = true
