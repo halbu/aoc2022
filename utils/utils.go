@@ -80,6 +80,16 @@ func IntSort(arr []int, desc bool) []int {
 	return arr
 }
 
+func Remove(arr []int, target int) []int {
+	out := []int{}
+	for _, e := range arr {
+		if e != target {
+			out = append(out, e)
+		}
+	}
+	return out
+}
+
 func Count[T int | string](arr []T, v T) int {
 	count := 0
 	for _, e := range arr {
