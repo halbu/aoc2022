@@ -25,6 +25,12 @@ func Log(s string) {
 	fmt.Println(s)
 }
 
+func ALog(arr []string) {
+	for i := 0; i != len(arr); i++ {
+		fmt.Println(arr[i])
+	}
+}
+
 func IAbs(i int) int {
 	if i < 0 {
 		return -i
