@@ -2,6 +2,7 @@ package utils
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"sort"
 	"strconv"
@@ -20,11 +21,32 @@ func GetData(s string) []string {
 	return output
 }
 
+func Log(s string) {
+	fmt.Println(s)
+}
+
 func IAbs(i int) int {
 	if i < 0 {
 		return -i
 	} else {
 		return i
+	}
+}
+
+func IFloor(i int, f int) int {
+	if i < f {
+		return f
+	}
+	return i
+}
+
+func ISign(i int) int {
+	if i > 0 {
+		return 1
+	} else if i < 0 {
+		return -1
+	} else {
+		return 0
 	}
 }
 
