@@ -2,32 +2,59 @@ package main
 
 import (
 	"aoc2022/utils"
+	"sort"
 	"strconv"
 	"unicode"
 )
 
 type Packet struct {
-	i *int
-	l []Packet
+	i   *int
+	l   []Packet
+	tag bool
 }
 
 func isInt(p Packet) bool      { return p.i != nil }
-func toList(p Packet) []Packet { return []Packet{{p.i, []Packet{}}} }
+func toList(p Packet) []Packet { return []Packet{{p.i, []Packet{}, false}} }
 
 func main() {
 	data := utils.GetData("./day13/day13-input")
+	packets := []Packet{}
 
 	correctIndices := []int{}
 	for i := 0; i < len(data); i += 3 {
 		left, right := data[i], data[i+1]
 		leftPacket, _ := packetize((left[1 : len(left)-1]))
 		rightPacket, _ := packetize((right[1 : len(right)-1]))
+		packets = append(packets, leftPacket)
+		packets = append(packets, rightPacket)
 
 		correctness := compare(leftPacket.l, rightPacket.l)
 		correctIndices = append(correctIndices, utils.IFloor(correctness, 0)*((i/3)+1))
 	}
 
 	utils.Log("Day 13 Part 1 solution: " + strconv.Itoa(utils.Sum(correctIndices)))
+
+	// Part 2 is going to be solved via the extremely naive method of just adding
+	// a boolean `tag` field to the Packet struct, and then manually tagging the
+	// two divider packets that we want to locate in the sorted array.
+	dividerPacketOne, _ := packetize("[[[2]]]")
+	dividerPacketTwo, _ := packetize("[[[6]]]")
+	dividerPacketOne.tag = true
+	dividerPacketTwo.tag = true
+	packets = append(packets, []Packet{dividerPacketOne, dividerPacketTwo}...)
+
+	sort.Slice(packets, func(i, j int) bool {
+		return compare(packets[i].l, packets[j].l) == 1
+	})
+
+	dividerIndices := []int{}
+	for i := 0; i < len(packets); i++ {
+		if packets[i].tag {
+			dividerIndices = append(dividerIndices, i+1)
+		}
+	}
+
+	utils.Log("Day 13 Part 2 solution: " + strconv.Itoa(utils.Product((dividerIndices))))
 }
 
 // Takes a string and converts it to a Packet. Any substring beginning with `[`
@@ -36,11 +63,11 @@ func main() {
 // consumed in the process of converting the string to the Packet.
 func packetize(s string) (Packet, int) {
 	if s == "" {
-		return Packet{nil, []Packet{}}, 0
+		return Packet{nil, []Packet{}, false}, 0
 	} else if string(s[0]) == "," {
 		s = s[1:]
 	} else if string(s[0]) == "]" {
-		return Packet{nil, []Packet{}}, 1
+		return Packet{nil, []Packet{}, false}, 1
 	}
 
 	token := ""
@@ -54,19 +81,19 @@ func packetize(s string) (Packet, int) {
 		} else if string(s[i]) == "]" {
 			if token != "" {
 				iVal := utils.StringToInt(token)
-				out.l = append(out.l, Packet{&iVal, []Packet{}})
+				out.l = append(out.l, Packet{&iVal, []Packet{}, false})
 			}
-			return out, i
+			return out, i + 1
 		} else if unicode.IsDigit(rune(s[i])) {
 			token += string(s[i])
 		} else if string(s[i]) == "," {
 			iVal := utils.StringToInt(token)
-			out.l = append(out.l, Packet{&iVal, []Packet{}})
+			out.l = append(out.l, Packet{&iVal, []Packet{}, false})
 			token = ""
 		}
 	}
 	iVal := utils.StringToInt(token)
-	out.l = append(out.l, Packet{&iVal, []Packet{}})
+	out.l = append(out.l, Packet{&iVal, []Packet{}, false})
 
 	return out, 0
 }
