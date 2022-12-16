@@ -7,6 +7,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 func GetData(s string) []string {
@@ -173,9 +174,38 @@ func Remainder(str string, substr string) string {
 	return str
 }
 
+func StrToInt(s string) int {
+	integer, _ := strconv.Atoi(s)
+	return integer
+}
+
 func StringToInt(s string) int {
 	integer, _ := strconv.Atoi(s)
 	return integer
+}
+
+// This is specifically for code-golfing, really. Takes a string, and returns an
+// array of all integers contained within it in the order that they appear. Lots
+// of AOC problems have you pulling multiple integers out of a set of similarly
+// formatted strings and it's always an annoyance, this is to alleviate that.
+func GetInts(s string) []int {
+	integers := []int{}
+	token := ""
+	for _, e := range s {
+		if unicode.IsDigit(e) || e == '-' {
+			token += string(e)
+		} else {
+			if token != "" {
+				integers = append(integers, StrToInt(token))
+				token = ""
+			}
+		}
+	}
+	if token != "" {
+		integers = append(integers, StrToInt(token))
+		token = ""
+	}
+	return integers
 }
 
 func RemoveDuplicates[T int | string](arr []T) []T {
